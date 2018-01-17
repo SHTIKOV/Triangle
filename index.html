@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+  <html ng-app="project">
+    <head>         
+      <script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>  
+      <script src="http://code.angularjs.org/angular-1.0.1.js"></script>    
+    </head>
+    <body>      
+        <script>
+            var projectModule = angular.module('project',[]);  
+            projectModule.factory('user', function() {      
+                var vk = {
+                        data: {}, 
+                        appID: 5845876, // как веб сайт
+                        appPermissions: 16,
+
+                        //инициализация
+                        init: function(){      
+                        VK.init({apiId: vk.appID});                      
+                    },
+
+                    //метод входа
+                    login:function(callback){                    
+                    
+                        function authInfo(response){     
+                            if(response.session){ // Авторизация успешна
+                                vk.data.user = response.session.user;
+                                alert('Вы авторизовались!');
+                            }else {
+                                alert("Авторизоваться не удалось!");
+                            }     
+                        }                       
+                    
+                        VK.Auth.login(authInfo, vk.appPermissions);
+                    },
+
+                    //метод проверки доступа
+                    access:function(callback){
+                        VK.Auth.getLoginStatus(function(response) { 
+                            if(response.session){ // Пользователь авторизован
+                                callback(vk.data.user);
+                            }else { // Пользователь не авторизован
+                                vk.login(callback);         
+                            }                    
+                        })     
+                    },
+
+                    logout:function(){
+                        VK.Auth.logout();
+                        this.data.user={};
+                        alert('Вы вышли');
+                    }
+                
+                }
+                
+                vk.init(); 
+                
+                return vk;
+            });
+            
+                
+            function FirstCtrl($scope, user) {	    
+                $scope.logout=function(){
+                    user.logout();
+                }
+                
+                $scope.login=function(){
+                    user.login();
+                }
+
+                user.access(function(usr){
+                    alert('Этот код исполнится только для авторизованных');
+                    console.log(usr);      
+                });
+            }         
+        </script>
+  
+      <div ng-controller="FirstCtrl">
+        <button ng-click="logout()">Выход</button>	
+        <button ng-click="login()">Авторизоваться</button>	
+      </div>
+  
+    </body>
+  </html>
