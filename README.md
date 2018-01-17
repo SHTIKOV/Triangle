@@ -1,5 +1,5 @@
 # Triangle
-##[DEMO](https://shtikov.github.io/VK-messager/)##
+[##DEMO##](https://shtikov.github.io/VK-messager/)
 
 Triangle is a new messenger for any platforms such us:
 * Vk
