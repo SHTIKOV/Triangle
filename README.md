@@ -1,6 +1,12 @@
-# VK-messager
+# Triangle
 
-### Список комманд:
+> Triangle is a new messenger for any platforms such us:
+> * Vk
+> * Facebook
+> * Telegram
+> * Instagram
+
+### Command list:
 * **npm run start:dev**
 
-[Открыть проект](https://shtikov.github.io/VK-messager/)
+[DEMO](https://shtikov.github.io/VK-messager/)
