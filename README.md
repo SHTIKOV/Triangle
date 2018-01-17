@@ -1,4 +1,4 @@
-# Triangle
+# Triangle messenger
 [DEMO](https://shtikov.github.io/Triangle/)
 
 Triangle is a new messenger for any platforms such us:
