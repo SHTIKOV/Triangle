@@ -71,7 +71,7 @@
             var vk = {
                 data: {},
                 appID: 5845876,
-                appPermissions: 1+2+4+8+16+32+64+128+256+1024+2048+4096+8192+32768+65536+131072+262144+524288+1048576+4194304+134217728,
+                appPermissions: 1+2+4+8+16+32+64+128+256+1024+2048+4096+8192+32768+65536+131072+262144+524288+1048576+4194304+134217728+268435456+536870912,
 
                 //инициализация
                 init: function(){
@@ -117,9 +117,17 @@
 
                 sendMsg : function (msg) {
                     console.log('VK', VK);
+                    //VK.api('sendMessage',
+                    /*VK.api('getDialogs',
+                        {},
+                        function (data) {
+                            console.log('messages.send',data);
+                        }
+                    );*/
                     VK.api('messages.send',
                         {
                             message: msg,
+                            user_id: 147414271,
                         },
                         function (data) {
                             console.log('messages.send',data);
