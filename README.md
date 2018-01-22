@@ -1,6 +1,10 @@
 # Triangle messenger
 [DEMO](https://shtikov.github.io/Triangle/)
-
+<p align="center">
+  <img src="https://img.shields.io/github/license/relativty/fastVR-sdk.svg">
+  <img src="https://img.shields.io/github/stars/relativty/fastVR-sdk.svg">
+  <img src="https://img.shields.io/github/issues/relativty/fastVR-sdk.svg">
+</p>
 ![Иллюстрация к проекту](https://pp.userapi.com/c830108/v830108111/509a7/UGc19HzfnvY.jpg)
 
 Triangle is a new messenger for any platforms such us:
