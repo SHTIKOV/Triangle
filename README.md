@@ -1,7 +1,7 @@
 # Triangle messenger
 [DEMO](https://shtikov.github.io/Triangle/)
 
-![Иллюстрация к проекту](https://cdn4.iconfinder.com/data/icons/ios-web-user-interface-multi-circle-flat-vol-7/512/message_chat_comment_inbox_conversation_chatting_bubble-512.png)
+![Иллюстрация к проекту](https://pp.userapi.com/c830108/v830108111/509a7/UGc19HzfnvY.jpg)
 
 Triangle is a new messenger for any platforms such us:
 * Vk
