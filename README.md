@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/github/stars/relativty/fastVR-sdk.svg">
   <img src="https://img.shields.io/github/issues/relativty/fastVR-sdk.svg">
 </p>
-![Иллюстрация к проекту](https://pp.userapi.com/c830108/v830108111/509a7/UGc19HzfnvY.jpg)
+<img src="https://pp.userapi.com/c830108/v830108111/509a7/UGc19HzfnvY.jpg" width="100%">
 
 Triangle is a new messenger for any platforms such us:
 * Vk
