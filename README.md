@@ -1,9 +1,9 @@
 # Triangle messenger
 [DEMO](https://shtikov.github.io/Triangle/)
 <p align="center">
-  <img src="https://img.shields.io/npm/v/npm.svg">
-  <img src="https://img.shields.io/amo/stars/dustman.svg">
-  <img src="https://img.shields.io/uptimerobot/status/m778918918-3e92c097147760ee39d02d36.svg">
+  <img src="https://img.shields.io/npm/v/npm.svg?style=for-the-badge">
+  <img src="https://img.shields.io/amo/stars/dustman.svg?style=for-the-badge">
+  <img src="https://img.shields.io/uptimerobot/status/m778918918-3e92c097147760ee39d02d36.svg?style=for-the-badge">
 </p>
 <img src="https://pp.userapi.com/c830108/v830108111/509a7/UGc19HzfnvY.jpg" width="100%">
 
