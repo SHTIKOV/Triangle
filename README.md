@@ -1,7 +1,7 @@
 # Triangle messenger
 [DEMO](https://shtikov.github.io/Triangle/)
 <p align="center">
-  <img src="https://img.shields.io/github/license/relativty/fastVR-sdk.svg">
+  <img src="https://img.shields.io/travis/rust-lang/rust.svg">
   <img src="https://img.shields.io/github/stars/relativty/fastVR-sdk.svg">
   <img src="https://img.shields.io/github/issues/relativty/fastVR-sdk.svg">
 </p>
