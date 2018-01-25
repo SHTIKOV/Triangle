@@ -48,7 +48,9 @@
       </style>
     </head>
     <body>
-        <div id="triangle">
+
+
+        <div id="triangle" >
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -98,13 +100,13 @@
                   </div>
                 </div>-->
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Список друзей</h2>
+                <div id="friends" v-if="chechAccess">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Список друзей</h2>
+                        </div>
                     </div>
-                </div>
 
-                <div id="friends">
                     <div class="row friends-list">
                         <div class="col-md-2" v-for="friend in friendsArr">
                             <div class="friends-list__item">
