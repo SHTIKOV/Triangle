@@ -155,7 +155,7 @@
                                 }
                             );*/
 
-                            VK.Api.call('friends.get', {fields: 'city,domain'}, function(data) {
+                            VK.Api.call('friends.get', {fields: 'city,domain,photo_100'}, function(data) {
                                 console.log('friends.get',data);
                                 callback.friendsArr = data.response;
                             });
