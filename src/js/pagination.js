@@ -8,26 +8,22 @@ Vue.component('pagination', {
         currentPage: {
             type: Number,
             default: 1
+        },
+        perPage: {
+            type: Number,
+            default: 12
         }
     },
     data: {
         current: 12,
+        perPage: 12,
         currentPage: 0
     },
     computed: {
         nextPage: function () {
             let current = this.current;
-            this.currentPage += 1;
-            return this.$parent.offsetFriends += this.$parent.perPage;
-        },
-        prevPage: function () {
-            if (this.current) {
-                this.currentPage += 1;
-                return this.$parent.offsetFriends -= this.$parent.perPage;
-            } else {
-                this.currentPage = 0;
-                return this.$parent.offsetFriends = 0;
-            }
+            let perPage = this.perPage;
+            return this.$parent.perPage += 12;
         },
     },
     methods: {

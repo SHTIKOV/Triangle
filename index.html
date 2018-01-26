@@ -21,7 +21,7 @@
     <body>
 
         <template id="pagination-template">
-            <nav aria-label="...">
+            <!--<nav aria-label="...">
               <ul class="pagination pagination-lg justify-content-center">
                 <li class="page-item " v-bind:class="{ disabled: !$parent.offsetFriends }">
                   <a class="page-link" tabindex="-1" @click="changePage(prevPage)">Предыдущая</a>
@@ -31,11 +31,16 @@
                   <a class="page-link" @click="changePage(nextPage)">Следующая</a>
                 </li>
               </ul>
-            </nav>
+            </nav>-->
+
+            <div class="pagination justify-content-center">
+                <button type="button" class="btn btn-primary" @click="changePage(nextPage)">Добавить еще</button>
+            </div>
         </template>
 
         <div id="triangle" >
-            <div class="container">
+                <!--<div class="fixed" style="width: 100px;height: 100px;font-size: 30px;margin: 20px;position: fixed;">{{perPage}}</div>
+            --><div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-group">
@@ -108,7 +113,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <pagination :current="offsetFriends" @page-changed="getFriends(offsetFriends)"></pagination>
+                                <pagination :current="perPage" @page-changed="getFriends(perPage)"></pagination>
                             </div>
                         </div>
                     </div>

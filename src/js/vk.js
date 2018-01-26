@@ -97,7 +97,7 @@ var vk = {
         });*/
     },
     getFriends: function (callback) {
-        VK.Api.call('friends.get', {fields: 'city,domain,photo_100', count: callback.perPage, offset: callback.offsetFriends}, function(data) {
+        VK.Api.call('friends.get', {fields: 'city,domain,photo_100', count: callback.perPage}, function(data) {
             callback.friendsArr = data.response;
             callback.totalFriends = data.response.length;
         });
