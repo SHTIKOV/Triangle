@@ -23,7 +23,7 @@ Vue.component('pagination', {
         nextPage: function () {
             let current = this.current;
             let perPage = this.perPage;
-            return this.$parent.perPage += 12;
+            //return this.$parent.perPage += 12;
         },
     },
     methods: {
@@ -32,3 +32,9 @@ Vue.component('pagination', {
         }
     }
 })
+
+$(window).scroll(function(){
+    if ( $(window).scrollTop()+$(window).height() >= $('#load_more').offset ().top-100)  {
+        app.getFriends ();
+    }
+});

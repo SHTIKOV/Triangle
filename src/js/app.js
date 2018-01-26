@@ -27,8 +27,10 @@ var app = new Vue({
             vk.logout (this);
             this.friendsArr = [{}];
             this.perPage = 12;
+            this.username = "Вы не авторизованы";
+            deleteCookie('username');
         },
-        getFriends: function (page) {
+        getFriends: function () {
             vk.getFriends (this);
         },
         sendMsg : function () {

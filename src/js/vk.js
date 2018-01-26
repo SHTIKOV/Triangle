@@ -13,9 +13,11 @@ var vk = {
         function authInfo(response){
             if(response.session){
                 vk.data.user = response.session.user;
+                var message = "Привет, "+vk.data.user.first_name+" "+vk.data.user.last_name;
                 var username = vk.data.user.first_name+" "+vk.data.user.last_name;
                 setCookie('username', username);
-                callback.username = response.session.user.first_name+" "+response.session.user.last_name;
+                callback.username = username;
+                callback.message = message;
                 callback.chechAccess = true;
 
                 /*VK.Api.call('User', {fields: 'city'}, function(data) {
@@ -49,7 +51,7 @@ var vk = {
                     callback.friendsArr = data.response;
                     console.log('friends.get',data);
                 });*/
-                callback.getFriends(callback, callback.offsetFriends);
+                //callback.getFriends(callback, callback.offsetFriends);
 
             }else {
                 callback.chechAccess = false;
@@ -62,8 +64,6 @@ var vk = {
         VK.Auth.logout();
         this.data.user={};
         callback.chechAccess = false;
-        callback.username = "Вы не авторизованы";
-        deleteCookie('username');
     },
 
     sendMsg : function (msg) {
@@ -98,8 +98,11 @@ var vk = {
     },
     getFriends: function (callback) {
         VK.Api.call('friends.get', {fields: 'city,domain,photo_100', count: callback.perPage}, function(data) {
-            callback.friendsArr = data.response;
-            callback.totalFriends = data.response.length;
+            if (data.response && callback.friendsArr != data.response) {
+                callback.friendsArr = data.response;
+                callback.totalFriends = data.response.length;
+                callback.perPage += 12;
+            }
         });
     }
 };
