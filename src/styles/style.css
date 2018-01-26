@@ -34,7 +34,7 @@ a {cursor: pointer}
 }
 .friends-list .friends-list__item .item__name {
     color: #fff;
-    margin: 25px 0px 0px 0px;
+    margin: 15px 0px 0px 0px;
 }
 .friends-list .friends-list__item .item__avatar-wrapper {
     width: 100px;
