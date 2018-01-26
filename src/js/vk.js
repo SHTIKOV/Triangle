@@ -31,8 +31,6 @@ var vk = {
                 );*/
 
                 callback.getFriends(callback, callback.offsetFriends);
-
-                console.log('response', response);
             }else {
                 alert("Авторизоваться не удалось!");
                 callback.chechAccess = false;
@@ -45,7 +43,6 @@ var vk = {
     access: function(callback){
         VK.Auth.getLoginStatus(function(response) {
             if(response.session){
-                console.log('session',response.session);
                 callback.chechAccess = true;
 
                 /*VK.Api.call('friends.get', {fields: 'city,domain,photo_100'}, function(data) {
@@ -70,7 +67,6 @@ var vk = {
     },
 
     sendMsg : function (msg) {
-        console.log('VK', VK);
         //VK.api('sendMessage',
         /*VK.api('getDialogs',
             {},
