@@ -25,7 +25,7 @@ a {cursor: pointer}
     top: 80px;
     left: 9px;
 }
-.friends-list .friends-list__item .item__avatar {
+.friends-list .friends-list__item .item__avatar img {
     border-radius: 50%;
 }
 .friends-list .friends-list__item .item__name {
