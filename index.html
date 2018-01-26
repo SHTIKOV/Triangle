@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
@@ -13,42 +12,25 @@
         <script src="https://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-      <style>
-        body { padding: 20px 0px; }
-        .friends-list {
-            text-align: center;
-        }
-        .friends-list .friends-list__item {
-            padding: 25px;
-            border-radius: 3px;
-            background-color: #3c3c3c;
-            margin: 8px auto;
-            color: #fff;
-            min-height: 235px;
-        }
-        .friends-list .friends-list__item .item__online.on {
-            background-color: #5cb85c !important
-        }
-        .friends-list .friends-list__item .item__online {
-            height: 15px;
-            width: 15px;
-            background-color: #777;
-            border-radius: 50%;
-            position: absolute;
-            top: 112px;
-            left: 52px;
-        }
-        .friends-list .friends-list__item .item__avatar {
-            border-radius: 50%;
-        }
-        .friends-list .friends-list__item .item__name {
-            color: #fff;
-            margin: 25px 0px 0px 0px;
-        }
-      </style>
+        <script src="/src/js/core.js"></script>
+        <script src="/src/js/vk.js"></script>
+        <link rel="stylesheet" href="/src/styles/style.css" />
     </head>
     <body>
 
+        <template id="pagination-template">
+            <nav aria-label="...">
+              <ul class="pagination pagination-lg justify-content-center">
+                <li class="page-item " v-bind:class="{ disabled: !$parent.offsetFriends }">
+                  <a class="page-link" tabindex="-1" @click="changePage(prevPage)">Предыдущая</a>
+                </li>
+                <li class="page-item"><a class="page-link">... {{currentPage}} ...</a></li>
+                <li class="page-item">
+                  <a class="page-link" @click="changePage(nextPage)">Следующая</a>
+                </li>
+              </ul>
+            </nav>
+        </template>
 
         <div id="triangle" >
             <div class="container">
@@ -67,12 +49,14 @@
                                   </div>
                                 </div>
 
-                                <div v-if="chechAccess">
-                                    <div class="jumbotron jumbotron-fluid">
-                                        <h1 class="display-3">{{ username }}</h1>
-                                        <p class="lead">{{ message }}</p>
+                                <transition name="slide-fade">
+                                    <div v-if="chechAccess">
+                                        <div class="jumbotron jumbotron-fluid">
+                                            <h1 class="display-3">{{ username }}</h1>
+                                            <p class="lead">{{ message }}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                </transition>
                             </div>
                           </div>
                         </div>
@@ -100,23 +84,31 @@
                   </div>
                 </div>-->
 
-                <div id="friends" v-if="chechAccess">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Список друзей</h2>
+                <transition name="slide-fade">
+                    <div id="friends" v-if="chechAccess">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Список друзей</h2>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row friends-list">
-                        <div class="col-md-2" v-for="friend in friendsArr">
-                            <div class="friends-list__item">
-                                <div class="item__online" v-bind:class="{ on: friend.online }"></div>
-                                <img class="item__avatar" v-bind:src="friend.photo_100" /><br />
-                                <h5 class="item__name">{{ friend.first_name }} {{ friend.last_name }}</h5>
+                        <div class="row friends-list">
+                                <div class="col-md-2" v-for="friend in friendsArr">
+                                    <div class="friends-list__item">
+                                        <div class="item__online" v-bind:class="{ on: friend.online }"></div>
+                                        <img class="item__avatar" v-bind:src="friend.photo_100" /><br />
+                                        <h5 class="item__name">{{ friend.first_name }} {{ friend.last_name }}</h5>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <pagination :current="offsetFriends" @page-changed="getFriends(offsetFriends)"></pagination>
                             </div>
                         </div>
                     </div>
-                </div>
+                </transition>
             </div>
         </div>
 
@@ -124,231 +116,12 @@
             if (!navigator.cookieEnabled) {
               alert( 'Включите cookie для комфортной работы с этим сайтом' );
             }
-            var vk = {
-                data: {},
-                appID: 5845876,
-                appPermissions: 1+2+4+8+16+32+64+128+256+1024+2048+4096+8192+32768+65536+131072+262144+524288+1048576+4194304+134217728+268435456+536870912,
-
-                //инициализация
-                init: function(){
-                    VK.init({apiId: vk.appID});
-                },
-
-                login:function(callback){
-                    function authInfo(response){
-                        if(response.session){
-                            vk.data.user = response.session.user;
-                            var username = vk.data.user.first_name+" "+vk.data.user.last_name;
-                            setCookie('username', username);
-                            callback.username = response.session.user.first_name+" "+response.session.user.last_name;
-                            callback.chechAccess = true;
-
-                            /*VK.Api.call('User', {fields: 'city'}, function(data) {
-                                this.friendsArr = data;
-                                console.log('User',data);
-                            });
-
-                            VK.api('User.get',
-                                {fields: 'city'},
-                                function (data) {
-                                    console.log('UserUser',data);
-                                }
-                            );*/
-
-                            VK.Api.call('friends.get', {fields: 'city,domain,photo_100'}, function(data) {
-                                console.log('friends.get',data);
-                                callback.friendsArr = data.response;
-                            });
-
-                            console.log('response', response);
-                        }else {
-                            alert("Авторизоваться не удалось!");
-                            callback.chechAccess = false;
-                        }
-                    }
-
-                    VK.Auth.login(authInfo, vk.appPermissions);
-                },
-
-                access:function(callback){
-                    VK.Auth.getLoginStatus(function(response) {
-                        if(response.session){
-                            console.log('session',response.session);
-                            callback.chechAccess = true;
-
-                            VK.Api.call('friends.get', {fields: 'city,domain,photo_100'}, function(data) {
-                                callback.friendsArr = data.response;
-                                console.log('friends.get',data);
-                            });
-
-                        }else {
-                            callback.chechAccess = false;
-                            callback.username = "Вы не авторизованны";
-                        }
-                    })
-                },
-
-                logout:function(callback){
-                    VK.Auth.logout();
-                    this.data.user={};
-                    callback.chechAccess = false;
-                    callback.username = "Вы не авторизованы";
-                    deleteCookie('username');
-                },
-
-                sendMsg : function (msg) {
-                    console.log('VK', VK);
-                    //VK.api('sendMessage',
-                    /*VK.api('getDialogs',
-                        {},
-                        function (data) {
-                            console.log('messages.send',data);
-                        }
-                    );*/
-                    /*VK.api('messages.send',
-                        {
-                            message: msg,
-                        },
-                        function (data) {
-                            console.log('messages.send',data);
-                        }
-                    );*/
-                    /*VK.Api.call('users.get', {}, function(r) {
-
-                    });*/
-                    /*VK.Api.call('messages.send', {message: msg}, function(data) {
-                        console.log('messages.send',data);
-                    });*/
-                    /*VK.Api.call('friends.get', {fields: 'city,domain'}, function(data) {
-                        this.friendsArr = data;
-                        console.log('friends.get',data);
-                    });*/
-                    /*VK.Api.call('wall.post', {message: msg}, function(data) {
-                        console.log('messages.send',data);
-                    });*/
-                },
-
-            };
-
+        </script>
+        <script src="/src/js/pagination.js"></script>
+        <script src="/src/js/app.js"></script>
+        <script>
             vk.init();
-
-            var app = new Vue({
-                el: '#triangle',
-                data: {
-                    message: 'Тестовое сообщение',
-                    vk: vk,
-                    username: getCookie('username'),
-                    chechAccess: false,
-                    friendsArr: [{}],
-                },
-                methods: {
-                    accessApp: function () {
-                        vk.access (this);
-                        vk.sendMsg (this.message);
-                    },
-                    authApp: function () {
-
-                    },
-                    login: function () {
-                        vk.login (this);
-                    },
-                    logout: function () {
-                        vk.logout (this);
-                    },
-                    sendMsg : function () {
-                        /*sendRequest ('messages.send', {message: this.message}, function () {
-                            console.log('adsadasdasdasd');
-                        });*/
-                        //vk.sendMsg (this.message);
-                        this.message = "Новое тестовое сообщение";
-                    },
-                }
-            });
-
             app.accessApp ();
-
-            function FirstCtrl($scope, user) {
-                $scope.logout=function(){
-                    user.logout();
-                }
-
-                $scope.login=function(){
-                    user.login();
-                }
-
-                user.access(function(usr){
-                    //alert('Этот код исполнится только для авторизованных');
-                    console.log(usr);
-                });
-            }
-
-            function getCookie(name) {
-              var matches = document.cookie.match(new RegExp(
-                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-              ));
-              return matches ? decodeURIComponent(matches[1]) : undefined;
-            }
-
-            function deleteCookie(name) {
-              setCookie(name, "", {
-                expires: -1
-              })
-            }
-
-            function setCookie(name, value, options) {
-              options = options || {};
-
-              var expires = options.expires;
-
-              if (typeof expires == "number" && expires) {
-                var d = new Date();
-                d.setTime(d.getTime() + expires * 1000);
-                expires = options.expires = d;
-              }
-              if (expires && expires.toUTCString) {
-                options.expires = expires.toUTCString();
-              }
-
-              value = encodeURIComponent(value);
-
-              var updatedCookie = name + "=" + value;
-
-              for (var propName in options) {
-                updatedCookie += "; " + propName;
-                var propValue = options[propName];
-                if (propValue !== true) {
-                  updatedCookie += "=" + propValue;
-                }
-              }
-
-              document.cookie = updatedCookie;
-            }
-
-            function getUrl (method, params) {
-                params = params || {};
-                params['access_token'] = VK._session.sid;
-                return 'https://api.vk.com/method/' + method + '?' + jQuery.param(params);
-            }
-
-            function sendRequest (method, params, func) {
-                axios.get(getUrl (method, params), {
-                        params: {
-                          dataType: "JSONP"
-                        }
-                    })
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-                /*$.ajax({
-                    url: getUrl (method, params),
-                    method: "GET",
-                    dataType: "JSONp",
-                    success: func,
-                });*/
-            }
         </script>
     </body>
   </html>

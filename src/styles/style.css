@@ -1,0 +1,67 @@
+body { padding: 20px 0px; }
+a {cursor: pointer}
+.friends-list {
+    text-align: center;
+}
+.friends-list .friends-list__item {
+    padding: 30px 5px;
+    border-radius: 3px;
+    background-color: #3c3c3c;
+    margin: 8px auto;
+    color: #fff;
+    min-height: 235px;
+    width: 100%;
+    height: 200px;
+}
+.friends-list .friends-list__item .item__online.on {
+    background-color: #5cb85c !important
+}
+.friends-list .friends-list__item .item__online {
+    height: 15px;
+    width: 15px;
+    background-color: #777;
+    border-radius: 50%;
+    position: absolute;
+    top: 112px;
+    left: 52px;
+}
+.friends-list .friends-list__item .item__avatar {
+    border-radius: 50%;
+}
+.friends-list .friends-list__item .item__name {
+    color: #fff;
+    margin: 25px 0px 0px 0px;
+}
+
+
+/* Анимации появления и исчезновения могут иметь */
+/* различные продолжительности и динамику.       */
+.slide-fade-enter-active {
+  transition: all .4s ease;
+}
+.slide-fade-leave-active {
+  transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active до версии 2.1.8 */ {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+
+
+
+
+.friends-list__item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
