@@ -1,6 +1,7 @@
 var vk = {
     data: {},
-    appID: 5845876,
+    //appID: 5845876,
+    appID: 6347457,
     appPermissions: 1+2+4+8+16+32+64+128+256+1024+2048+4096+8192+32768+65536+131072+262144+524288+1048576+4194304+134217728+268435456+536870912,
     self: this,
 
@@ -67,6 +68,9 @@ var vk = {
     },
 
     sendMsg : function (msg) {
+        VK.Api.call('messages.send', {message: msg}, function(data) {
+            console.log('messages.send',data);
+        });
         //VK.api('sendMessage',
         /*VK.api('getDialogs',
             {},
@@ -97,8 +101,9 @@ var vk = {
         });*/
     },
     getFriends: function (callback) {
-        VK.Api.call('friends.get', {fields: 'city,domain,photo_100', count: callback.perPage}, function(data) {
+        VK.Api.call('friends.get', {fields: 'city,domain,photo_100,photo_max_orig', count: callback.perPage}, function(data) {
             if (data.response && callback.friendsArr != data.response) {
+                console.log(data.response);
                 callback.friendsArr = data.response;
                 callback.totalFriends = data.response.length;
                 callback.perPage += 12;

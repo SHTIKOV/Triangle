@@ -1,3 +1,5 @@
+Vue.use(Lightbox);
+
 var app = new Vue({
     el: '#triangle',
     data: {
@@ -14,7 +16,7 @@ var app = new Vue({
     methods: {
         accessApp: function () {
             vk.access (this);
-            vk.sendMsg (this.message);
+            vk.sendMsg ('this is test');
             this.getFriends (this);
         },
         authApp: function () {

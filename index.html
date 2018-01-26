@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-
+<meta rel="stylesheet" href="https://unpkg.com/vue-pure-lightbox/dist/vue-pure-lightbox.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -16,6 +16,7 @@
 
         <script src="src/js/core.js"></script>
         <script src="src/js/vk.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/vue-pure-lightbox/dist/vue-pure-lightbox.css" />
         <link rel="stylesheet" href="src/styles/style.css" />
     </head>
     <body>
@@ -24,7 +25,6 @@
                 <button type="button" class="btn btn-primary" @click="changePage(nextPage)">Добавить еще</button>
             </div>
         </template>
-
         <div id="triangle" >
             <div class="container">
                 <div class="row">
@@ -74,9 +74,14 @@
                                 <div class="friends-list__item">
                                     <div class="item__avatar-wrapper">
                                         <div class="item__online" v-bind:class="{ on: friend.online }"></div>
-                                        <img class="item__avatar" v-bind:src="friend.photo_100"></img<br />
+                                        <lightbox
+                                            :thumbnail="friend.photo_100"
+                                            :images="[friend.photo_max_orig]"
+                                        ></lightbox><br />
                                     </div>
-                                    <h5 class="item__name">{{ friend.first_name }} {{ friend.last_name }}</h5>
+                                    <a v-bind:href="'//vk.com/id'+friend.user_id">
+                                        <h5 class="item__name">{{ friend.first_name }} {{ friend.last_name }}</h5>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -97,6 +102,7 @@
             }
         </script>
         <script src="src/js/pagination.js"></script>
+<script src="https://unpkg.com/vue-pure-lightbox/dist/vue-pure-lightbox.js"></script>
         <script src="src/js/app.js"></script>
         <script>
             vk.init();
