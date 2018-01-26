@@ -25,6 +25,7 @@ var app = new Vue({
         },
         logout: function () {
             vk.logout (this);
+            this.friendsArr = [{}];
         },
         getFriends: function (page) {
             vk.getFriends (this);
