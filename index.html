@@ -2,6 +2,8 @@
   <html ng-app="project">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -93,10 +95,12 @@
                         </div>
 
                         <div class="row friends-list">
-                                <div class="col-md-2" v-for="friend in friendsArr">
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12" v-for="friend in friendsArr">
                                     <div class="friends-list__item">
-                                        <div class="item__online" v-bind:class="{ on: friend.online }"></div>
-                                        <img class="item__avatar" v-bind:src="friend.photo_100" /><br />
+                                        <div class="item__avatar-wrapper">
+                                            <div class="item__online" v-bind:class="{ on: friend.online }"></div>
+                                            <img class="item__avatar" v-bind:src="friend.photo_100"></img<br />
+                                        </div>
                                         <h5 class="item__name">{{ friend.first_name }} {{ friend.last_name }}</h5>
                                     </div>
                                 </div>
