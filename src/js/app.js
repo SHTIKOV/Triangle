@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#triangle',
     data: {
-        message: 'Авторизован',
+        message: 'Привет, '+getCookie('username'),
         vk: vk,
         username: getCookie('username'),
         chechAccess: false,
